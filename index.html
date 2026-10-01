@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- ✏️ [수정] 브라우저 탭에 표시될 페이지 제목 -->
+  <title>해운대 — 부산광역시</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chiron+Hei+HK:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    /* =============================================
+       🎨 색상 & 폰트 설정
+       여기만 바꾸면 전체 색상이 한꺼번에 바뀝니다!
+       ============================================= */
+    :root {
+      --bg:           #f7f4ef;      /* 전체 배경 (따뜻한 크림) */
+      --bg-dark:      #1c1814;      /* 어두운 배경 */
+      --text:         #2a2118;      /* 본문 글자색 */
+      --accent:       #8b6c42;      /* 포인트 색 (황금빛 갈색) */
+      --accent-light: #e8ddd0;      /* 연한 포인트색 */
+      --white:        #fdfcfa;      /* 밝은 흰색 */
+      --muted:        #9a8c7e;      /* 흐린 글자색 */
+
+      --font-display: 'Cormorant Garamond', serif;  /* 제목용 폰트 */
+      --font-body:    "Chiron Hei HK", sans-serif;        /* 본문 폰트 */
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* =============================================
+       상단 내비게이션
+       ============================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 48px;
+      mix-blend-mode: normal;
+    }
+
+    .nav-logo {
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      color: #fff;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    .nav-tag {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* =============================================
+       🖼️ 히어로 섹션
+       ============================================= */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: grid;
+      place-items: end start;
+      overflow: hidden;
+    }
+
+    /* ✏️ [수정] 배경 이미지를 바꾸려면 아래 background-image URL을 교체하세요 */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('imgs/메인2.png');
+      background-size: cover;
+      background-position: center 30%;
+      animation: zoomIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1); }
+    }
+
+    /* 그라디언트 오버레이 */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(20,15,10,0.72) 0%, rgba(20,15,10,0.1) 65%),
+        linear-gradient(to top, rgba(20,15,10,0.5) 0%, transparent 50%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 56px 80px;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeRight 0.9s 0.6s forwards;
+    }
+
+    .hero-eyebrow-line {
+      width: 36px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-eyebrow-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ✏️ [수정] 메인 제목 */
+    .hero-title {
+      font-family: var(--font-body);
+      font-size: clamp(3.5rem, 9vw, 5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeRight 0.9s 0.8s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: #d4b896;
+    }
+
+    /* ✏️ [수정] 히어로 부제목 */
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      max-width: 420px;
+      opacity: 0;
+      animation: fadeRight 0.9s 1s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      right: 56px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .hero-scroll-bar {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollBar 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollBar {
+      0%, 100% { transform: scaleY(1); opacity: 0.5; }
+      50%       { transform: scaleY(1.4); opacity: 1; }
+    }
+
+    /* =============================================
+       장식용 구분선
+       ============================================= */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 0 auto 48px;
+      max-width: 200px;
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .ornament-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      opacity: 0.7;
+    }
+
+    /* =============================================
+       📝 소개 섹션
+       ============================================= */
+    .intro {
+      padding: 110px 48px 90px;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .intro-left {
+      position: sticky;
+      top: 120px;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    /* ✏️ [수정] 소개 제목 */
+    .intro-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.25;
+      color: #1F4E5F;
+    }
+
+    .intro-title strong {
+      display: block;
+      font-weight: 600;
+      font-style: italic;
+      color: var#4A4038;
+    }
+
+    .intro-right {}
+
+    /* ✏️ [수정] 소개 본문 */
+    .intro-text {
+      font-size: 1rem;
+      line-height: 2;
+      color: #5a4e42;
+      margin-bottom: 28px;
+      text-align: justify;
+    }
+
+    .intro-text:last-child { margin-bottom: 0; }
+
+    .intro-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--accent-light);
+    }
+
+    .stat {}
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    /* ✏️ [수정] 숫자 통계 설명 */
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* =============================================
+       🗺️ 주요 명소 카드 섹션
+       ============================================= */
+    .spots {
+      padding: 80px 48px 110px;
+      background: var(--bg-dark);
+      position: relative;
+    }
+
+    /* 배경 장식 */
+    .spots::before {
+      content: '慶州';
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      font-family: var(--font-display);
+      font-size: 10rem;
+      color: rgba(255,255,255,0.025);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .spots-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .spots-header .section-label { color: var(--accent); }
+
+    /* ✏️ [수정] 명소 섹션 제목 */
+    .spots-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-top: 14px;
+    }
+
+    .spots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ✏️ [수정] 각 카드를 복사해서 명소를 추가하거나 내용을 수정하세요 */
+    .spot-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      cursor: pointer;
+    }
+
+    
+    .spot-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block;
+    }
+
+    .spot-card:hover .spot-img {
+      transform: scale(1.06);
+    }
+
+    .spot-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,10,5,0.85) 0%, rgba(15,10,5,0.1) 50%, transparent 100%);
+      transition: opacity 0.4s;
+    }
+
+    .spot-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 30px 28px;
+      transform: translateY(8px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .spot-card:hover .spot-info { transform: translateY(0); }
+
+    .spot-category {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    /* ✏️ [수정] 명소 이름 */
+    .spot-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    /* ✏️ [수정] 명소 설명 */
+    .spot-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .spot-card:hover .spot-desc { max-height: 100px; }
+
+    /* =============================================
+       💡 여행 팁 섹션
+       ============================================= */
+    .tips {
+      padding: 110px 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .tips-header {
+      margin-bottom: 64px;
+    }
+
+    /* ✏️ [수정] 팁 섹션 제목 */
+    .tips-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-top: 14px;
+      max-width: 500px;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    /* ✏️ [수정] 각 팁 항목을 복사하거나 내용을 수정하세요 */
+    .tip-item {
+      padding: 44px 40px;
+      background: var(--white);
+      border: 1px solid var(--accent-light);
+      transition: background 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tip-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--accent);
+      transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tip-item:hover::before { height: 100%; }
+
+    .tip-item:hover { background: #faf7f2; }
+
+    .tip-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    /* ✏️ [수정] 팁 제목 */
+    .tip-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ✏️ [수정] 팁 내용 */
+    .tip-text {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    /* =============================================
+       📞 예약/문의 CTA 섹션
+       ============================================= */
+    .cta {
+      position: relative;
+      overflow: hidden;
+      background:var(--bg-dark);
+      padding: 130px 48px;
+      text-align: center;
+    }
+
+    /* 배경 장식 원 */
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(139,108,66,0.15);
+      pointer-events: none;
+    }
+
+    .cta::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      border: 1px solid rgba(139,108,66,0.07);
+      pointer-events: none;
+    }
+
+    .cta-inner { position: relative; z-index: 1; }
+
+    .cta-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .cta-line {
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    .cta-label-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ✏️ [수정] CTA 제목 */
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .cta-title em {
+      font-style: italic;
+      color: #1F4E5F;
+    }
+
+    /* ✏️ [수정] CTA 부제목 */
+    .cta-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 56px;
+      letter-spacing: 0.03em;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ✏️ [수정] 버튼 텍스트와 href 링크를 바꾸세요 */
+    .btn {
+      display: inline-block;
+      padding: 16px 44px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #a07c4e;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(139,108,66,0.35);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-ghost:hover {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.6);
+      transform: translateY(-3px);
+    }
+
+    /* =============================================
+       📌 푸터
+       ============================================= */
+    footer {
+      background: #110e0b;
+      padding: 40px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* ✏️ [수정] 푸터 텍스트 */
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
+    }
+
+    /* =============================================
+       공통 애니메이션
+       ============================================= */
+    @keyframes fadeRight {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* =============================================
+       반응형 (모바일)
+       ============================================= */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .hero-content { padding: 0 24px 60px; }
+
+      .intro {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 70px 24px;
+      }
+
+      .intro-left { position: static; }
+
+      .spots { padding: 70px 24px; }
+
+      .spots-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .spot-card:first-child {
+        grid-row: auto;
+        aspect-ratio: 3 / 2;
+      }
+
+      .spot-card { aspect-ratio: 3 / 2; }
+
+      .spot-desc { max-height: 100px !important; }
+
+      .tips { padding: 70px 24px; }
+
+      .tips-grid { grid-template-columns: 1fr; }
+
+      .cta { padding: 90px 24px; }
+
+      footer {
+        padding: 30px 24px;
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    .top-btn {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  z-index: 999;
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+
+  background: rgba(28,24,20,0.75);
+  backdrop-filter: blur(8px);
+
+  color: rgba(255,255,255,0.85);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease,
+    transform 0.35s ease,
+    background 0.3s ease;
+}
+
+/* 스크롤 후 나타나는 상태 */
+.top-btn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* 마우스를 올렸을 때 */
+.top-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .top-btn {
+    right: 20px;
+    bottom: 20px;
+    width: 46px;
+    height: 46px;
+    font-size: 0.7rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- 내비게이션 바 -->
+  <nav>
+    <!-- ✏️ [수정] 로고 텍스트 -->
+    <a class="nav-logo" href="#">부산 해운대</a>
+    <!-- ✏️ [수정] 우측 태그 텍스트 -->
+    <span class="nav-tag">부산의 바다</span>
+  </nav>
+
+
+  <!-- ============================================
+       🖼️ [수정] 히어로 섹션
+       - .hero-bg 의 background-image URL을 교체하세요
+       - hero-eyebrow-text: 상단 작은 태그
+       - hero-title: 메인 제목 (em 태그 안이 기울어진 텍스트)
+       - hero-sub: 부제목 설명
+       ============================================ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <!-- ✏️ 상단 작은 태그 텍스트 -->
+        <span class="hero-eyebrow-text">Busan Haeundae</span>
+      </div>
+
+      <!-- ✏️ 메인 제목 — em 태그 안쪽이 기울어진 황금빛 텍스트 -->
+      <h1 class="hero-title">
+        낭만이 머무는곳<br/>
+        <em>해운대</em>
+      </h1>
+
+      <!-- ✏️ 히어로 부제목 설명 -->
+      <p class="hero-sub">
+        바다와 도시가 만나는 곳,<br/>
+        해운대에서 만나는 부산의 낭만
+      </p>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="hero-scroll-bar"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       📝 [수정] 소개 섹션
+       - intro-title: 왼쪽 고정 제목
+       - intro-text: 오른쪽 본문 (여러 단락 가능)
+       - stat-number / stat-label: 숫자 통계
+       ============================================ -->
+  <section class="intro">
+    <div class="intro-left">
+      <p class="section-label">About</p>
+      <!-- ✏️ 소개 제목 — strong 안이 굵고 기울어진 강조 텍스트 -->
+      <h2 class="intro-title">
+        바다와 도시가<br/>
+        <strong>만나는 곳</strong>
+      </h2>
+    </div>
+
+    <div class="intro-right">
+      <!-- ✏️ 소개 본문 — 원하는 만큼 단락을 추가하거나 수정하세요 -->
+      <p class="intro-text">
+        해운대는 푸른 바다와 눈부신 백사장, 그리고 도시의 활기가 함께 어우러진 부산의 대표적인 해안 공간입니다.
+낮에는 끝없이 펼쳐진 바다를 바라보며 여유로운 시간을 보내고, 해가 지면 빛나는 도시의 풍경 속에서 또 다른 해운대를 만날 수 있습니다.
+
+      <p class="intro-text">
+        해운대해수욕장을 따라 이어지는 산책길과 동백섬의 푸른 숲, 달맞이길의 아름다운 풍경까지.
+자연과 문화, 일상과 여행이 자연스럽게 겹쳐지는 이곳에서 바다를 바라보는 순간만큼은 잠시 천천히 걸어 보세요.
+      </p>
+
+      <!-- ✏️ 숫자 통계 — 원하는 내용으로 바꾸세요 -->
+      <div class="intro-stats">
+        <div class="stat">
+          <div class="stat-number">365</div>
+          <div class="stat-label">바다를 만나는 날
+                                  </div>
+                                  
+                                  
+        </div>
+        <div class="stat">
+          <div class="stat-number">24</div>
+          <div class="stat-label">하루를 채우는 풍경
+                                  </div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">끝없이 이어지는 바다
+                                  </div>
+                                  
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       🗺️ [수정] 주요 명소 카드 섹션
+       - 첫 번째 카드는 크게 표시됩니다 (대표 명소 추천!)
+       - spot-category: 카테고리 태그
+       - spot-name: 명소 이름
+       - spot-desc: 설명 (카드 hover 시 나타남)
+       - spot-img의 src: 사진 URL
+       ============================================ -->
+  <section class="spots">
+    <div class="spots-header">
+      <p class="section-label">Must-Visit</p>
+      <!-- ✏️ 명소 섹션 제목 -->
+      <h2 class="spots-title">꼭 가봐야할 해운대</h2>
+    </div>
+
+    <div class="spots-grid">
+
+      <!-- ✏️ 명소 카드 1 (대표 — 크게 표시됨) -->
+      <div class="spot-card">
+        <img class="spot-img"
+          src="imgs/해운대1.jpg"/>
+        <div class="spot-overlay"></div>
+        <div class="spot-info">
+          <!-- ✏️ 카테고리 -->
+          <p class="spot-category">HAEUNDAE BEACH · UNESCO</p>
+          <!-- ✏️ 명소 이름 -->
+          <h3 class="spot-name">해운대해수욕장</h3>
+          <!-- ✏️ 명소 설명 (마우스를 올리면 나타납니다) -->
+          <p class="spot-desc">
+            부산을 대표하는 넓은 백사장과 푸른 바다.
+계절마다 다른 풍경과 함께 해운대의 가장 가까운 순간을 만날 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- ✏️ 명소 카드 2 -->
+      <div class="spot-card">
+        <img class="spot-img"
+          src="imgs/더베이2.jpg"/>
+        <div class="spot-overlay"></div>
+        <div class="spot-info">
+          <p class="spot-category">NIGHT VIEW</p>
+          <h3 class="spot-name">더베이101</h3>
+          <p class="spot-desc">
+            바다 너머로 펼쳐지는 도시의 불빛과
+마린시티의 야경을 한눈에 담을 수 있는 해운대의 밤.
+          </p>
+        </div>
+      </div>
+
+      <!-- ✏️ 명소 카드 3 -->
+      <div class="spot-card">
+        <img class="spot-img"
+          src="imgs/동백섬2.jpg"/>
+        <div class="spot-overlay"></div>
+        <div class="spot-info">
+          <p class="spot-category">NATURE & WALK</p>
+          <h3 class="spot-name">동백섬</h3>
+          <p class="spot-desc">
+           푸른 숲길을 따라 걷다 보면 바다와 도시가 만나는 풍경을 만날 수 있습니다.
+해운대의 여유를 가장 가까이 느낄 수 있는 산책길입니다.
+
+이미지:
+          </p>
+        </div>
+      </div>
+
+      <!-- ✏️ 명소 카드 4 -->
+      <div class="spot-card">
+        <img class="spot-img"
+          src="imgs/달맞이길.jpg"/>
+        <div class="spot-overlay"></div>
+        <div class="spot-info">
+          <p class="spot-category">DALMAJI ROAD</p>
+          <h3 class="spot-name">달맞이길</h3>
+          <p class="spot-desc">
+            굽이진 길을 따라 이어지는 푸른 바다와 아름다운 풍경.
+천천히 걸으며 해운대의 여유로운 분위기를 느껴보세요.
+          </p>
+        </div>
+      </div>
+
+      <!-- ✏️ 카드를 여기에 복사해서 추가할 수 있어요! -->
+      <div class="spot-card">
+        <img class="spot-img"
+          src="imgs/찐청사포.jpg"/>
+        <div class="spot-overlay"></div>
+        <div class="spot-info">
+          <p class="spot-category">CHEONGSAPO</p>
+          <h3 class="spot-name">청사포</h3>
+          <p class="spot-desc">
+            푸른 바다를 곁에 두고 천천히 걷는 해안 마을.
+다릿돌전망대와 해변 풍경이 어우러져 해운대의 여유를 만날 수 있습니다.
+          </p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img class="spot-img"
+          src="imgs/블루블루.jpg"/>
+        <div class="spot-overlay"></div>
+        <div class="spot-info">
+          <p class="spot-category">BLUE LINE PARK</p>
+          <h3 class="spot-name">해운대 블루라인파크</h3>
+          <p class="spot-desc">
+            바다와 가장 가까운 곳에서 만나는 특별한 여행.
+해변열차와 스카이캡슐을 타고 해운대 해안을 따라 펼쳐지는 풍경을 감상해보세요.
+          blue-line-name {font-size: 22px;}   
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       💡 [수정] 여행 팁 섹션
+       - tips-title: 섹션 제목
+       - 각 tip-item: 번호, 제목, 내용 수정
+       - 항목을 복사해서 추가하거나 삭제 가능
+       ============================================ -->
+  <section class="tips">
+    <div class="tips-header">
+      <p class="section-label">Travel Tips</p>
+      <!-- ✏️ 팁 섹션 제목 -->
+      <h2 class="tips-title">해운대 여행 전<br/>알아두면 좋은 것들</h2>
+    </div>
+
+    <div class="tips-grid">
+
+      <!-- ✏️ 팁 1 -->
+      <div class="tip-item">
+        <div class="tip-number">01</div>
+        <!-- ✏️ 팁 제목 -->
+        <p class="tip-title">🌅 추천 여행 시간</p>
+        <!-- ✏️ 팁 내용 -->
+        <p class="tip-text">
+          해운대의 매력을 가장 다양하게 즐기고 싶다면 오후부터 저녁까지의 시간을 추천합니다.
+낮에는 푸른 바다를, 해 질 무렵에는 아름다운 노을을, 밤에는 빛나는 도시의 풍경을 만날 수 있습니다.
+        </p>
+      </div>
+
+      <!-- ✏️ 팁 2 -->
+      <div class="tip-item">
+        <div class="tip-number">02</div>
+        <p class="tip-title">🚋 교통 & 이동</p>
+        <p class="tip-text">
+          해운대는 지하철과 버스 등 대중교통으로 편리하게 이동할 수 있습니다.
+주요 관광지는 도보로 이어지는 곳이 많아 천천히 걸으며 바다와 도시의 풍경을 함께 즐겨보세요.
+        </p>
+      </div>
+
+      <!-- ✏️ 팁 3 -->
+      <div class="tip-item">
+        <div class="tip-number">03</div>
+        <p class="tip-title">🍜 해운대의 맛</p>
+        <p class="tip-text">
+          바다를 만났다면 부산의 맛도 빼놓을 수 없습니다.
+돼지국밥과 밀면부터 해산물과 어묵까지, 부산을 대표하는 음식으로 여행의 즐거움을 더해보세요.
+        </p>
+      </div>
+
+      <!-- ✏️ 팁 4 -->
+      <div class="tip-item">
+        <div class="tip-number">04</div>
+        <p class="tip-title">🌙 밤에 만나는 해운대</p>
+        <p class="tip-text">
+          해가 진 뒤에도 해운대의 여행은 계속됩니다.
+해변을 따라 이어지는 야경과 마린시티의 빛나는 풍경을 천천히 걸으며 낮과는 또 다른 해운대를 만나보세요.
+        </p>
+      </div>
+
+      <!-- ✏️ 팁을 여기에 복사해서 추가할 수 있어요! -->
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       📞 [수정] 예약/문의 CTA 섹션
+       - cta-title: 마지막 강조 문구
+       - cta-sub: 부제목
+       - 버튼 텍스트와 href 링크 수정
+       ============================================ -->
+  <section class="cta">
+    <div class="cta-inner">
+      <div class="cta-eyebrow">
+        <div class="cta-line"></div>
+        <span class="cta-label-text">Ready to Travel</span>
+        <div class="cta-line"></div>
+      </div>
+
+      <!-- ✏️ CTA 제목 — em 태그 안이 황금빛 기울어진 텍스트 -->
+      <h2 class="cta-title">
+        지금 바로<br/>
+        <em>부산으로 떠나세요</em>
+      </h2>
+
+      <!-- ✏️ CTA 부제목 -->
+      <p class="cta-sub">바다와 낭만이 당신을 기다립니다</p>
+
+      <div class="cta-buttons">
+        <!-- ✏️ 버튼 1 — href에 원하는 링크를 넣으세요 -->
+        <a href="#" class="btn btn-primary">여행 패키지 보기</a>
+        <!-- ✏️ 버튼 2 — href에 원하는 링크를 넣으세요 -->
+        <a href="#" class="btn btn-ghost">문의하기</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       📌 [수정] 푸터
+       ============================================ -->
+  <footer>
+    <!-- ✏️ 푸터 왼쪽 브랜드명 -->
+    <span class="footer-brand"> Busan Haeundae</span>
+    <!-- ✏️ 푸터 오른쪽 저작권 표시 -->
+    <span class="footer-copy">© 2026 부산 여행 가이드 — 만든 이: 이먀먀</span>
+  </footer>
+<!-- ⬆️ 위로가기 버튼 -->
+<button class="top-btn" id="topBtn" aria-label="맨 위로 이동">
+  ↑ TOP
+</button>
+<script>
+  const topBtn = document.getElementById('topBtn');
+
+  // 스크롤 위치에 따라 버튼 표시
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      topBtn.classList.add('show');
+    } else {
+      topBtn.classList.remove('show');
+    }
+  });
+
+  // 버튼 클릭 → 맨 위로 부드럽게 이동
+  topBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+</script>
+</body>
+</html>
